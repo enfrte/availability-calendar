@@ -2,7 +2,7 @@
 
 **Warning:** This is my first attempt at an MVC project in CodeIgniter, and one of my first projects in general. As a result, it may be a little inconsistent in technique and process, and probably a little rough around the edges. It is mainly for potential employers to see *where I'm at* rather than being something ready for adoption. 
 
-Video Demo (click the image)
+### Video Demo (click the image)
 
 [![DIY Lingo Demo](https://img.youtube.com/vi/K8l2x3Ow47Q/0.jpg)](https://www.youtube.com/watch?v=K8l2x3Ow47Q)
 
