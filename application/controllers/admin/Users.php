@@ -33,8 +33,13 @@ class Users extends Admin_Controller
   {
     $this->data['page_title'] = 'Create user';
 
-    // if the current user is an admin, don't allow them access to the group
-    if(!$this->ion_auth->in_group('admin'))
+    // prepare requirements module
+    $this->load->model('projects/requirements_model');
+    $this->data['requirements'] = $this->requirements_model->get_requirements();
+
+    // prepare to create user  
+    // only super admin can set user rights
+    if($this->ion_auth->in_group('super_admin'))
     {
       $this->form_validation->set_rules('groups[]', 'Set user rights', 'required|integer');
     }
@@ -53,8 +58,8 @@ class Users extends Admin_Controller
       $username = $this->input->post('username');
       $email = $this->input->post('email');
       $password = NULL;
-      // if the current user is a regular admin, don't allow them access to the group
-      if(!$this->ion_auth->in_group('admin'))
+      // if the current user is a regular admin, don't allow them to set the group. Only super admin can do that
+      if($this->ion_auth->in_group('super_admin'))
       {
         $group_ids = $this->input->post('groups[]');
       }
@@ -71,16 +76,18 @@ class Users extends Admin_Controller
 
       // submit the data
       $this->db->trans_start(); // http://www.codeigniter.com/user_guide/database/transactions.html
-      $this->ion_auth->register($username, $password, $email, $additional_data, $group_ids);
-      // more query data like user settings, admin settings
+      // assigning ion_auth->register() to $user_id assigns the variable the newly created user id. 
+      // this is equivalent to $this->db->insert_id(), which doesn't work with ion auth.
+      // Note: to receive the user id just created, the email activation has to be working
+      $user_id = $this->ion_auth->register($username, $password, $email, $additional_data, $group_ids);
       $this->db->trans_complete();
-      if ($this->db->trans_status() === FALSE)
-      {
-        $this->session->set_flashdata('message',$this->ion_auth->messages());
-      }
-      else
-      {
-        $this->session->set_flashdata('message',$this->ion_auth->messages());
+      
+      // update the user requirements
+      if(isset($user_id)) {
+        $this->requirements_model->update_user_requirements($this->input->post('requirements'), $user_id);
+      } 
+      else {
+        $this->session->set_flashdata('message', 'Could not add User requirements. Ion Auth activation email must be setup and working. Try to set it via the Edit user form and report this as a bug.');
       }
 
       redirect('admin/users','refresh');
@@ -89,11 +96,20 @@ class Users extends Admin_Controller
 
   public function edit($user_id = NULL)
   {
-    // get the id of the user passed in the edit() method call
-    $user_id = $this->input->post('user_id') ? $this->input->post('user_id') : $user_id;
+    // verify a user id has been passed in the method argument
+    if($user_id === NULL) { redirect('admin/users','refresh'); }
+    if(empty($this->ion_auth->user($user_id)->row())) { die("Error: User $user_id does not exit."); } // check if user exists
+
+    // prepare requirements module
+    $this->load->model('projects/requirements_model');
+    $this->data['requirements'] = $this->requirements_model->get_user_requirements($user_id);
+
+    // get the id of the user passed in the edit() method call or post request
+    //$user_id = $this->input->post('user_id') ? $this->input->post('user_id') : $user_id;
 
     // get the group of the user that is being edited.
     $user_group = $this->ion_auth->get_users_groups($user_id)->result();
+
     $user_group = $user_group[0]->name;
     $this->data['user_group'] = $user_group;
 
@@ -116,15 +132,7 @@ class Users extends Admin_Controller
 
     if($this->form_validation->run() === FALSE)
     {
-      if($user = $this->ion_auth->user((int) $user_id)->row())
-      {
-        $this->data['user'] = $user;
-      }
-      else
-      {
-        $this->session->set_flashdata('message', 'The user doesn\'t exist.');
-        redirect('admin/users', 'refresh');
-      }
+      $user = $this->data['user'] = $this->ion_auth->user($user_id)->row(); // double assignment
 
       $this->data['usergroups'] = array(); // will hold the groups the user belongs to
       // insert all groups the user belongs to into the usergroups array
@@ -141,6 +149,7 @@ class Users extends Admin_Controller
     }
     else
     {
+      //print_r($this->input->post());exit;
       $user_id = $this->input->post('user_id');
       // these details are prefilled in the form and are always updated.
       $new_data = array(
@@ -171,6 +180,10 @@ class Users extends Admin_Controller
           }
         }
       }
+
+      // update the user requirements
+      $this->requirements_model->update_user_requirements($this->input->post('requirements'), $user_id);
+
       $this->session->set_flashdata('message',$this->ion_auth->messages());
       redirect('admin/users','refresh');
     }

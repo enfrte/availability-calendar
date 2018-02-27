@@ -33,8 +33,6 @@ class MY_Controller extends CI_Controller
     $this->load->view('templates/'.$template.'_view', $this->data);
   }
 
-
-
 }
 
 // the area accessable by logged in users
@@ -47,13 +45,13 @@ class Admin_Controller extends MY_Controller
     // access if a session has expired
     if(!$this->ion_auth->logged_in()) { redirect('login/login', 'refresh'); }
 
-    // user_name and group_name is used in the navbar to display the current
-    // user and group menu
+    // user_name and group_name is used in the navbar to display the current user and group menu
     if(isset($this->ion_auth->user()->row()->first_name)) $this->data['user_name'] = $this->ion_auth->user()->row()->first_name;
     if(isset($this->ion_auth->get_users_groups()->row()->name)) $this->data['group_name'] = $this->ion_auth->get_users_groups()->row()->name;
 
-    // user is logged in. Get their details
-    $this->data['current_user'] = $this->ion_auth->user()->row();
+    // user is logged in. Get their details for use with UI filtering
+    $this->data['current_user']['id'] = $this->ion_auth->user()->row()->id;
+
     // add the admin menu if they belong to admin or super_admin groups
     if($this->ion_auth->in_group('admin') || $this->ion_auth->in_group('super_admin'))
     {
@@ -64,7 +62,7 @@ class Admin_Controller extends MY_Controller
     // Initiate the projects view with project named menu items
     $this->load->model('menu_model');
     $this->data['menu_projects'] = $this->menu_model->get_projects();
-    if(isset($_SESSION['selected_project_id'])) {$this->menu_model->set_project_views();}
+    //if(isset($_SESSION['selected_project_id'])) {$this->menu_model->set_project_views();}
   }
 
   protected function render($the_view = NULL, $template = 'admin_master')

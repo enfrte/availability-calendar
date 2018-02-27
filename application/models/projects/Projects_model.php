@@ -22,8 +22,8 @@ class Projects_model extends CI_Model
   // get a list of project titles and their owners
   public function get_projects()
   {
-    $query = $this->db->get('projects'); // select the table with ActiveRecord get() same as SELECT * FROM test_table
-    return $query->result(); // return the rows selected
+    $query = $this->db->get('projects'); 
+    return $query->result(); 
   }
 
   // set new a project title and their owner

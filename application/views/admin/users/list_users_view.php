@@ -31,15 +31,17 @@
       // user is super admin
       if($this->ion_auth->in_group('super_admin'))
       {
-        if($current_user->id != $user->id)
+        if($current_user['id'] != $user->id)
         {
           // allow full options
-          echo anchor('admin/users/edit/'.$user->id,'<span class="glyphicon glyphicon-pencil"></span>').' '.anchor('admin/users/delete/'.$user->id,'<span class="glyphicon glyphicon-remove"></span>').' '.anchor('admin/users/reset_password/'.$user->id,'<span class="glyphicon glyphicon-lock"></span>');
+          echo anchor('admin/users/edit/'.$user->id,'Edit user').'<br>'
+              .anchor('admin/users/delete/'.$user->id,'Delete user').'<br>';
+              //.anchor('admin/users/reset_password/'.$user->id,'Reset password');
         }
         else
         {
           // current list's user is super admin - don't allow user to delete their own account (only edit)
-          echo anchor('admin/users/edit/'.$user->id,'<span class="glyphicon glyphicon-pencil"></span>');
+          echo anchor('admin/users/edit/'.$user->id,'Edit user');
         }
       }
       // user is admin && this list's user is not admin (ie. a member)

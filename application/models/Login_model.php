@@ -15,6 +15,17 @@ class Login_model extends CI_Model
 
     if(!is_null($previous_project_id))
     {
+      // Checks to see if the user still meets the requirements to see the requested project.
+      $required_projects = $this->menu_model->get_projects();
+      $projects = [];
+      foreach ($required_projects as $project) {
+        $projects[] = $project->id; // copy just the project ids to an array 
+      }
+      // check if the previous user stored project id against current user requirement project ids
+      if( !in_array($previous_project_id, $projects) ){
+        return false; // user does not have requirement access
+      } 
+
       // bug fix: if admin has changed status of project from published to draft, the draft project still gets called because the project id was still getting called directly from the user's saved project entry in the database
       // check if the project is still published
       $this->db->select('is_draft'); 
@@ -51,7 +62,7 @@ class Login_model extends CI_Model
         $_SESSION['selected_project'] = $_SESSION['previous_project'];
         $_SESSION['selected_project_id'] = $_SESSION['previous_project'];
         $_SESSION['selected_project_name'] = $this->menu_model->get_project_name($_SESSION['previous_project']);
-        $this->menu_model->set_project_views();
+        //$this->menu_model->set_project_views();
         unset($_SESSION['previous_project']);
         redirect('calendar/calendar/home'.'/'.$_SESSION['selected_project_id'].'/', 'refresh');
       }

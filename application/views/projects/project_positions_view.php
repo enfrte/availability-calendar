@@ -16,7 +16,7 @@
     ?>
 
     <div class="form-inline pos-control-menu cal-card-hover">
-      <h2>Project: <?php echo $project_name;?></h2>
+      <h2><?php echo $project_name;?></h2>
       <div class="form-group">
         <?php
         // removed days[] from select because day is set by the controller.

@@ -7,24 +7,16 @@ class Menu_model extends CI_Model
     parent::__construct();
   }
 
-  // Initiate the projects view with project named menu items (called in MY_Controller)
+  // get published projects as items for the menu (called in MY_Controller)
   public function get_projects()
   {
-    // NEW REQUIREMENTS
-    // RETURN ONLY PROJECTS THAT HAVE DAYS/POSITIONS - YOU CAN DO THIS IN MYSQL
-    // RETURN ONLY PROJECTS THAT HAVE AT LEAST ONE DAY SET TO PUBLISHED
-    /* THIS WORKS
-    SELECT DISTINCT
-    	projects.id, projects.title
-    FROM
-    	projects
-    INNER JOIN
-    	positions
-    ON
-    	(projects.id = positions.project_id)
+    /* 
+    SELECT DISTINCT	projects.id, projects.title FROM projects
+    INNER JOIN positions
+    ON (projects.id = positions.project_id)
     WHERE (positions.is_draft = '0')
-    */
 
+    Old code before requirement filtering was implemented
     $this->db->distinct();
     $this->db->select('projects.id, projects.title');
     // NOTE! If you are having problems with this query, check into the use of the distinct method
@@ -35,20 +27,35 @@ class Menu_model extends CI_Model
     $query = $this->db->get();
 
     return $query->result(); // return the rows selected
+    */
+
+    $sql = "SELECT * FROM projects p
+      WHERE NOT EXISTS(
+          SELECT 1 FROM projects_requirements pr
+          WHERE pr.projects_id = p.id
+              AND NOT EXISTS(
+                  SELECT 1 FROM users_requirements ur
+                  WHERE ur.users_id = ?
+                  AND ur.requirements_id = pr.requirements_id
+              )
+    )";
+    $query = $this->db->query($sql, array($_SESSION['user_id'])); // CI query binding example - replaces ? in query
+    print_r($query->result()); 
+    return $query->result();
   }
 
 
-  // get the name of a project via its id
+  // get the name of a project via its id (used to populate the project menu)
   public function get_project_name($project_id = NULL)
   {
     if($project_id === NULL || !is_numeric($project_id)){ redirect('calendar/projects', 'refresh'); }
-    // pull one record from the db
+    // 
     $row = $this->db->get_where('projects', array('id' => $project_id))->row();
     return $row->title;
   }
 
-
-  // get the days a project runs on
+/*
+  // get the projects
   public function get_project_views($project_id)
   {
     $this->db->distinct();
@@ -62,7 +69,7 @@ class Menu_model extends CI_Model
     return $query->result();
   }
 
-
+  // called in MY_Controller if isset($_SESSION['selected_project_id') is true
   public function set_project_views()
   {
     $project_views = $this->get_project_views($_SESSION['selected_project_id']);
@@ -74,11 +81,13 @@ class Menu_model extends CI_Model
     $_SESSION['menu_views'] = array_unique($project_days); // no duplicates - array_unique not needed now since no duplicates are handled by the sql query
     return;
   }
+*/
 
-
-  // update users table with current selected project and day
+  // Called when project in project menu is clicked.
+  // Update users table with current selected project and day
   public function save_previous_project_view($project_id)
   {
+
     $data = array('previous_project' => $project_id);
     $this->db->where('id', $_SESSION['user_id']);
     $this->db->update('users', $data);

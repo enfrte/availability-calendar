@@ -36,12 +36,17 @@
       // user is super admin
       if($this->ion_auth->in_group('super_admin'))
       {
-        echo anchor('calendar/project_positions/update_position/'.$project->id.'/'.$project->owner_id,'Edit positions').' | '.anchor('calendar/projects/update_title/'.$project->id.'/'.$project->owner_id,'Edit title').' | '.anchor('calendar/projects/delete_project/'.$project->id.'/'.$project->owner_id,'Delete project');
+        echo anchor('calendar/project_positions/update_position/'.$project->id.'/'.$project->owner_id,'Edit positions').'<br>'
+            .anchor('calendar/projects/update_requirements/'.$project->id,'Edit requirements').'<br>'
+            .anchor('calendar/projects/update_title/'.$project->id.'/'.$project->owner_id,'Edit title').'<br>'
+            .anchor('calendar/projects/delete_project/'.$project->id.'/'.$project->owner_id,'Delete project');
       }
       // user is admin && this list's user is not admin (ie. a member)
       else if($this->ion_auth->in_group('admin') && $current_user->id == $project->owner_id)
       {
-        echo anchor('calendar/project_positions/update_position/'.$project->id.'/'.$project->owner_id,'Edit positions').' | '.anchor('calendar/projects/update_title/'.$project->id.'/'.$project->owner_id,'Edit title').' | '.anchor('calendar/projects/delete_project/'.$project->id.'/'.$project->owner_id,'Delete project');
+        echo anchor('calendar/project_positions/update_position/'.$project->id.'/'.$project->owner_id,'Edit positions').'<br>'
+            .anchor('calendar/projects/update_title/'.$project->id.'/'.$project->owner_id,'Edit title').'<br>'
+            .anchor('calendar/projects/delete_project/'.$project->id.'/'.$project->owner_id,'Delete project');
       }
       else
       {

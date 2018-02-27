@@ -14,5 +14,5 @@ $config['smtp_pass'] = '*************';
 */
 // Gmail (remember to use gmail's unsafe mode for using unverified applications)
 $config['smtp_host'] = 'ssl://smtp.gmail.com';
-$config['smtp_user'] = 'example@gmail.com';
-$config['smtp_pass'] = '*****************';
+$config['smtp_user'] = 'iamnotanumber10@gmail.com';
+$config['smtp_pass'] = 'PASSWORD_HERE';

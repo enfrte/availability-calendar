@@ -34,6 +34,28 @@ public function create()
 
 }
 
+// ouput an editable list of current project visibilities and current saved satus
+public function update_requirements($project_id)
+{
+  $this->load->model('projects/requirements_model');
+
+  // Note: no validation is being checked for this form, so no $this->form_validation->run() === FALSE
+  if(empty($_POST))
+  {
+    //var_dump($this->input->post());
+    $this->data['requirements'] = $this->requirements_model->get_project_requirements($project_id);
+    $this->data['project_name'] = $this->projects_model->get_project_name($project_id);
+    $this->render('projects/update_project_requirements_view'); 
+  }
+  else
+  {
+    //var_dump($this->input->post());exit;
+    $this->requirements_model->update_project_requirements($this->input->post('requirements'), $project_id);
+    redirect('calendar/projects', 'refresh');
+  }
+
+}
+
 // edit the title of the project
 public function update_title($project_id = NULL, $owner_id = NULL)
 {
