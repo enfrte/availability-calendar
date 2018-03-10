@@ -4,7 +4,7 @@
   <div class="col-lg-4 col-lg-offset-4">
 
     <h1 style="margin-bottom:35px;">Edit project name</h1>
-    <?php echo $this->session->flashdata('message');?>
+    <?php echo $showMessages; ?>
     <?php echo form_open('',array('role'=>'form'));?>
 
     <div class="form-group">

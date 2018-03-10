@@ -2,8 +2,9 @@
 ---------------------------------------------------------------------------- */
 // execute a call to a controller based on the users select day action
 $( "select" ).change(function() {
-  // console.log( controller_uri );
+  console.log( 'Uri: '+controller_uri );
   controller_uri = controller_uri + select_day.value; // append the day argument
+  console.log('Day: '+select_day.value);
   // execute submit action
   window.location.href = controller_uri; // problems with window.location.href? See http://stackoverflow.com/a/11690095/3442612
 });

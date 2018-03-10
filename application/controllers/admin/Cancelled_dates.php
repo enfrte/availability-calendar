@@ -13,6 +13,7 @@ class Cancelled_dates extends Admin_Controller
 
   public function index()
   {
+		$this->data['before_body'] .= '<script src="'.site_url('assets/js/acal/confirmation.js').'"></script>';
 		$this->data['projects'] = $this->projects_model->get_projects();
 		//print_r($this->data['projects']); exit;
 		$this->data['cancelled_dates'] = $this->calendar_model->get_cancelled_dates();

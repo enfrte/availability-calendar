@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // Info / news page created by the super admin
-class Info extends Admin_Controller
+class Info extends Member_Controller
 {
   function __construct()
   {
@@ -33,6 +33,7 @@ class Info extends Admin_Controller
   // edit the info page. As data is added by super admin, it is somewhat trusted and doesn't have xss sanitation
   public function edit() 
   { 
+    $this->securityAccess('super_admin');
     // form validation and redirection
     $validate = $this->info_model->validate['organisation_info'];
     $this->form_validation->set_rules($validate);

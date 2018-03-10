@@ -5,8 +5,10 @@
 
     <h1>Contact admin</h1>
 
-    <?php echo $this->session->flashdata('message');?>
-    <?php //echo validation_errors(); ?>
+    <?php 
+      echo $showMessages; 
+      //echo validation_errors(); 
+    ?>
 
     <?php echo form_open('',array('role'=>'form'));?>
 

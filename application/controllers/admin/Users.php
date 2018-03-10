@@ -17,6 +17,7 @@ class Users extends Admin_Controller
   // list the users in a user table (don't forget to include index in the call when filtering by group).
   public function index($group_id = NULL)
   {
+    $this->data['before_body'] .= '<script src="'.site_url('assets/js/acal/confirmation.js').'"></script>';
     $this->data['page_title'] = 'Users';
 
     $this->data['users'] = $this->ion_auth->users($group_id)->result(); // get all the users (optional parameter - by group).

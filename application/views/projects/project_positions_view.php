@@ -6,8 +6,8 @@
   <div class="col-lg-8 col-lg-offset-2">
 
     <h1 style="padding-bottom:10px">Project positions</h1>
-    <?php echo $this->session->flashdata('updated');?>
-    <?php echo validation_errors(); ?>
+    <?php echo $showMessages; ?>
+    <?php echo validation_errors(); echo $this->uri->segment(6);  ?>
 
     <!-- FORM -->
     <?php
@@ -24,7 +24,8 @@
         echo form_label('Select day', '', array('style'=>'margin-right:10px;'));
         echo form_error(''); // see set_rules($field_name[, $field_label[, $rules]])
         $day = array( '1' => 'Monday', '2' => 'Tuesday', '3' => 'Wednesday', '4' => 'Thursday', '5' => 'Friday', '6' => 'Saturday', '0' => 'Sunday' );
-        echo form_dropdown('', $day, $this->uri->segment(6), 'id="select_day" style="margin-right:10px;" class="form-control input-lg"'); // http://stackoverflow.com/questions/11133540/adding-class-and-id-in-form-dropdown
+        // the selected day in the form_dropdown is taken from $this->uri->segment(5) which is from the url ($day in the controller)
+        echo form_dropdown('', $day, $this->uri->segment(5), 'id="select_day" style="margin-right:10px;" class="form-control input-lg"'); // http://stackoverflow.com/questions/11133540/adding-class-and-id-in-form-dropdown
         ?>
       </div>
       <!-- Action buttons -->
@@ -128,8 +129,9 @@
 </div>
 
 <?php
-  // create the controller uri base for the day select element argument to append to
-  $controller_uri = base_url().$this->uri->slash_segment(1).$this->uri->slash_segment(2).$this->uri->slash_segment(3).$this->uri->slash_segment(4).$this->uri->slash_segment(5);
+  // create the controller uri base for the select day tag value to append to. Should include up to project id
+  $controller_uri = base_url().$this->uri->slash_segment(1).$this->uri->slash_segment(2).$this->uri->slash_segment(3).$this->uri->slash_segment(4);
+  echo $controller_uri;
   // session variable for uri -- if the is a problem with the user action (actions draft, publish or delete), send the user back to the right place with args intact
   //$this->session->set_userdata( 'controller_uri_session', $controller_uri.$this->uri->segment(6) );
 ?>

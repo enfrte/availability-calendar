@@ -5,9 +5,12 @@
 
     <div class="row">
       <div class="col-lg-12">
+        
         <h1>Requirements view</h1>
         <p>Requirements rules allow you to restrict requirements of projects to certain users. After creating a new requirement, activate it in the project settings (Progect page > Edit positions) and configure the users (User list > Edit user) allowed to participate.</p>
-        <?php echo $this->session->flashdata('message'); ?>
+        
+        <?php echo $showMessages; ?>
+
         <a href="<?php echo site_url('admin/requirements/create');?>" class="btn btn-block btn-primary btn-lg">Create new requirements</a>
       </div>
     </div>
@@ -31,8 +34,8 @@
           // user is super admin
           if($this->ion_auth->in_group('super_admin'))
           {
-            echo anchor('admin/requirements/update/'.$visibile->id,'Edit requirements').'<br>'
-                .anchor('admin/requirements/delete/'.$visibile->id,'Delete requirements');
+            echo anchor('admin/requirements/update/'.$visibile->id, 'Edit requirements').'<br>'
+                .anchor('admin/requirements/delete/'.$visibile->id, 'Delete requirements', 'data-confirm="deleteRequirement"');
           }
           else
           {

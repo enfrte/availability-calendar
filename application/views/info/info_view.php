@@ -4,7 +4,7 @@ if($this->ion_auth->in_group('super_admin')) {
 ?>
   <div class="row">
     <div class="col-lg-12">
-      <?php echo $this->session->flashdata('message'); ?>
+      <?php echo $showMessages; ?>
       <a href="<?php echo site_url('info/edit');?>" class="btn btn-primary btn-lg">Edit information</a>
     </div>
   </div>

@@ -12,7 +12,7 @@
     -->
 
     <h1>Create user</h1>
-    <?php echo $this->session->flashdata('message');?>
+    <?php echo $showMessages; ?>
     <?php echo form_open('',array('role'=>'form'));?>
 
     <?php if($this->ion_auth->in_group('super_admin')) : ?>

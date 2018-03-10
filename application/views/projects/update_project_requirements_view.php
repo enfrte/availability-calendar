@@ -3,7 +3,7 @@
 <div class="row">
   <div class="col-lg-6 col-lg-offset-3">
     <h1><?php echo $project_name ?> requirements</h1>
-    <?php echo $this->session->flashdata('message');?>
+    <?php echo $showMessages; ?>
     <?php echo form_open('',array('role'=>'form'));?>
 
     <?php if(!empty($requirements)) : ?>

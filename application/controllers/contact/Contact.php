@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // use the contact form to send email to the organiser from the user
-class Contact extends Admin_Controller
+class Contact extends Member_Controller
 {
   function __construct()
   {

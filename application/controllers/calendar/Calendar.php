@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // shows calendar and user availability form 
-class Calendar extends Admin_Controller
+class Calendar extends Member_Controller
 {
 public function __construct()
 {

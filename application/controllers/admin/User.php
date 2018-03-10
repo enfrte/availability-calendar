@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 // control some standard user interactions
-class User extends Admin_Controller
+class User extends Member_Controller
 {
   function __construct()
   {

@@ -14,8 +14,13 @@ public function __construct()
 
 // populates the admin's project position view.
 // also works with the select day form element to pull the positions for a selected day
-public function update_position($project_id = NULL, $owner_id = NULL, $day = NULL)
+public function update_position($project_id, $day = NULL)
 {
+  if ( $this->projects_model->check_project_owner($project_id) !== true ) {
+    $this->session->set_flashdata('danger', 'Only the project owner or super admin can do that.');
+    redirect('calendar/projects', 'refresh');
+  }
+
   if($day == NULL){ $day = 1; } // set day to 1 == Monday (default view)
   $this->data['project_id'] = $project_id;
   $this->data['day'] = $day;
@@ -39,10 +44,10 @@ public function update_position($project_id = NULL, $owner_id = NULL, $day = NUL
       $this->positions_model->delete_position();
     }
     else {
-      $this->session->set_flashdata('updated', '<div class="alert alert-danger"><strong>Error! </strong>No action detected.<br>Please use one of the form actions to submit the form data (Save draft, Publish, or Delete).</div>');
+      $this->session->set_flashdata('danger', '<strong>Error! </strong>No action detected.<br>Please use one of the form actions to submit the form data (Save draft, Publish, or Delete)');
     }
 
-    redirect('calendar/project_positions/update_position/'."$project_id/$owner_id/$day");
+    redirect('calendar/project_positions/update_position/'."$project_id/$day");
   }
 }
 

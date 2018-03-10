@@ -6,7 +6,7 @@
     <h1>Create / Edit</h1>
     <h3>Create/Edit the information page</h3>
 
-    <?php echo $this->session->flashdata('message');?>
+    <?php echo $showMessages; ?>
     <?php echo validation_errors(); ?>
 
     <?php echo form_open('',array('role'=>'form'));?>

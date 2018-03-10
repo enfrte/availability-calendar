@@ -11,6 +11,7 @@ public function __construct()
 // list all projects
 public function index()
 {
+  $this->data['before_body'] .= '<script src="'.site_url('assets/js/acal/confirmation.js').'"></script>';
   $this->data['page_title'] = 'Projects page';
   $this->data['projects'] = $this->projects_model->get_projects();
   $this->render('projects/list_projects_view');
@@ -28,13 +29,40 @@ public function create()
   }
   else
   {
-    $this->projects_model->create_project_title();
+    if ($this->projects_model->create_project_title()) { $this->session->set_flashdata('success', "Project created"); }
     redirect('calendar/projects', 'refresh');
   }
 
 }
 
-// ouput an editable list of current project visibilities and current saved satus
+// edit the title of the project
+public function update_title($project_id = NULL)
+{
+  // use the same validation rules as create project title
+  $validate = $this->projects_model->validate['create_project'];
+  $this->form_validation->set_rules($validate);
+
+  if($this->form_validation->run() === FALSE)
+  {
+    $this->data['project_name'] = $this->projects_model->get_project_name($project_id);
+    $this->render('projects/update_project_title_view'); // return the user
+  }
+  else
+  {
+    if ($this->projects_model->update_project_title($project_id)) { $this->session->set_flashdata('success', "Project updated"); }
+    //Redirect to positions page
+    redirect('calendar/projects', 'refresh');
+  }
+}
+
+public function delete_project($project_id)
+{
+  if ($this->projects_model->delete_project($project_id)) { $this->session->set_flashdata('success', "Project deleted"); }
+  redirect('calendar/projects', 'refresh');
+}
+
+
+// ouput an editable list of current project requirements and current saved status
 public function update_requirements($project_id)
 {
   $this->load->model('projects/requirements_model');
@@ -50,37 +78,12 @@ public function update_requirements($project_id)
   else
   {
     //var_dump($this->input->post());exit;
-    $this->requirements_model->update_project_requirements($this->input->post('requirements'), $project_id);
+    if ($this->requirements_model->update_project_requirements($this->input->post('requirements'), $project_id)) { $this->session->set_flashdata('success', "Project requirements updated"); }
     redirect('calendar/projects', 'refresh');
   }
 
 }
 
-// edit the title of the project
-public function update_title($project_id = NULL, $owner_id = NULL)
-{
-  // use the same validation rules as create project title
-  $validate = $this->projects_model->validate['create_project'];
-  $this->form_validation->set_rules($validate);
-
-  if($this->form_validation->run() === FALSE)
-  {
-    $this->data['project_name'] = $this->projects_model->get_project_name($project_id);
-    $this->render('projects/update_project_title_view'); // return the user
-  }
-  else
-  {
-    $this->projects_model->update_project_title($project_id, $owner_id);
-    //Redirect to positions page
-    redirect('calendar/projects', 'refresh');
-  }
-}
-
-public function delete_project($project_id = NULL, $owner_id = NULL)
-{
-  $this->projects_model->delete_project($project_id, $owner_id);
-  redirect('calendar/projects', 'refresh');
-}
 
 
 }

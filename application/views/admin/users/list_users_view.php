@@ -8,7 +8,7 @@
 <div class="row">
   <div class="col-lg-12">
     <h1>Users view</h1>
-    <?php echo $this->session->flashdata('message'); ?>
+    <?php echo $showMessages; ?>
     <a href="<?php echo site_url('admin/users/create');?>" class="btn btn-primary btn-lg">Create new user</a>
   </div>
 </div>
@@ -24,7 +24,6 @@
       echo '<tr>';
       echo '<td>'.$user->first_name.' '.$user->last_name.'</td><td>'.$user->email.'</td><td>'.$user->phone.'</td><td>'.str_replace("_", " ", ucfirst($user->groups[0]->name)).'</td><td>';
       /*
-        Members are not allowed to access this page so no need to check for them.
         If the user is in the group admin, they can only edit/delete members.
         If the user is a super admin, they have all access rights, but can't delete their own account.
       */
@@ -34,20 +33,22 @@
         if($current_user['id'] != $user->id)
         {
           // allow full options
-          echo anchor('admin/users/edit/'.$user->id,'Edit user').'<br>'
-              .anchor('admin/users/delete/'.$user->id,'Delete user').'<br>';
+          echo anchor('admin/users/edit/'.$user->id, 'Edit user').'<br>'
+              .anchor('admin/users/delete/'.$user->id, 'Delete user', 'data-confirm="deleteUser"').'<br>';
               //.anchor('admin/users/reset_password/'.$user->id,'Reset password');
         }
         else
         {
           // current list's user is super admin - don't allow user to delete their own account (only edit)
-          echo anchor('admin/users/edit/'.$user->id,'Edit user');
+          echo anchor('admin/users/edit/'.$user->id, 'Edit user');
         }
       }
-      // user is admin && this list's user is not admin (ie. a member)
+      // user is admin 
       else if($this->ion_auth->in_group('admin') && $user->groups[0]->name !== 'admin' && $user->groups[0]->name !== 'super_admin')
       {
-        echo anchor('admin/users/edit/'.$user->id,'<span class="glyphicon glyphicon-pencil"></span>').' '.anchor('admin/users/delete/'.$user->id,'<span class="glyphicon glyphicon-remove"></span>').' '.anchor('admin/users/reset_password/'.$user->id,'<span class="glyphicon glyphicon-lock"></span>');
+        echo anchor('admin/users/edit/'.$user->id, 'Edit user').'<br>'
+            .anchor('admin/users/delete/'.$user->id, 'Delete user', 'data-confirm="deleteUser"').'<br>';
+            //.anchor('admin/users/reset_password/'.$user->id,'Reset password');
       }
       else
       {

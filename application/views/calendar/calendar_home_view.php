@@ -4,6 +4,7 @@
   <div class="col-lg-8 col-lg-offset-2">
     <?php
     echo validation_errors();
+    echo $showMessages;
     // prompt the user to select a project day or view type
     if(!isset($_SESSION['selected_project_id']) && !isset($project)) {
       echo '<h1 class="cal-header-row">Select a project</h1>';

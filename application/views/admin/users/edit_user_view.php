@@ -3,7 +3,7 @@
 <div class="row">
   <div class="col-lg-4 col-lg-offset-4">
     <h1>Edit user</h1>
-    <?php echo $this->session->flashdata('message');?>
+    <?php echo $showMessages; ?>
     <?php echo form_open('',array('role'=>'form'));?>
 
       <?php

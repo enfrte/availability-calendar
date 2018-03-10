@@ -5,7 +5,7 @@
 
     <h1 style="margin-bottom:35px;">Change password</h1>
     <?php
-      echo $this->session->flashdata('message'); // output any flashdata session messages
+      echo $showMessages;
     ?>
 
       <?php

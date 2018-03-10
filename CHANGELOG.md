@@ -1,6 +1,23 @@
-Add changes for the git push here...
+# Change log
 
-Created: 19-02-2018 
+## Info about notable changes to the app.
+
+### Log for: 2018-03-01
+
+Lot's of updates and perhaps the finalisation of the app. 
+
+* MY_Controller - Added securityAccess method to prevent direct access of certain areas. 
+* MY_Controller - Added members class to represent logged in users whom are not admin. 
+* MY_Controller - Added custom showMessages method. 
+* assets/js/confirmation.js - Added confirmation for user form submission. Covers deletion of users, projects, requirements, cancelled dates.
+* Added edit and delete methods for requirements. 
+* Projects_model - added a check_project_owner method to properly check that the admin user can modify various projects and positions. As a result, various owner_id controller arguments have been removed. 
+
+### New backlog
+
+There is a new bug where after creating an unpublished project (with no days), it appears in the projects list. 
+
+### Log for: 2018-02-19 
 
 Updated parts of the application to Codeigniter 3.1.7 including:
 * Updated index file in the root (/index.php)

@@ -3,7 +3,10 @@
 <div class="row">
   <div class="col-lg-12">
     <h1>Projects view</h1>
-    <?php echo $this->session->flashdata('message'); ?>
+    <?php 
+      echo $this->session->flashdata('message'); 
+      echo $showMessages; 
+    ?>
     <a href="<?php echo site_url('calendar/projects/create');?>" class="btn btn-primary btn-lg">Create new project</a>
   </div>
 </div>
@@ -36,17 +39,17 @@
       // user is super admin
       if($this->ion_auth->in_group('super_admin'))
       {
-        echo anchor('calendar/project_positions/update_position/'.$project->id.'/'.$project->owner_id,'Edit positions').'<br>'
+        echo anchor('calendar/project_positions/update_position/'.$project->id,'Edit positions').'<br>'
             .anchor('calendar/projects/update_requirements/'.$project->id,'Edit requirements').'<br>'
-            .anchor('calendar/projects/update_title/'.$project->id.'/'.$project->owner_id,'Edit title').'<br>'
-            .anchor('calendar/projects/delete_project/'.$project->id.'/'.$project->owner_id,'Delete project');
+            .anchor('calendar/projects/update_title/'.$project->id,'Edit title').'<br>'
+            .anchor('calendar/projects/delete_project/'.$project->id, 'Delete project', 'data-confirm="deleteUser"');
       }
       // user is admin && this list's user is not admin (ie. a member)
-      else if($this->ion_auth->in_group('admin') && $current_user->id == $project->owner_id)
+      else if($this->ion_auth->in_group('admin') && $current_user['id'] == $project->owner_id)
       {
-        echo anchor('calendar/project_positions/update_position/'.$project->id.'/'.$project->owner_id,'Edit positions').'<br>'
-            .anchor('calendar/projects/update_title/'.$project->id.'/'.$project->owner_id,'Edit title').'<br>'
-            .anchor('calendar/projects/delete_project/'.$project->id.'/'.$project->owner_id,'Delete project');
+        echo anchor('calendar/project_positions/update_position/'.$project->id,'Edit positions').'<br>'
+            .anchor('calendar/projects/update_title/'.$project->id,'Edit title').'<br>'
+            .anchor('calendar/projects/delete_project/'.$project->id, 'Delete project', 'data-confirm="deleteUser"');
       }
       else
       {

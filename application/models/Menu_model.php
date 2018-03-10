@@ -28,7 +28,9 @@ class Menu_model extends CI_Model
 
     return $query->result(); // return the rows selected
     */
-
+    /*
+    This example tests the new requirements table, but doesn't test the positions, which is also needed. 
+    See the current working table for that. For now, this working example makes it easier to understand.
     $sql = "SELECT * FROM projects p
       WHERE NOT EXISTS(
           SELECT 1 FROM projects_requirements pr
@@ -39,8 +41,22 @@ class Menu_model extends CI_Model
                   AND ur.requirements_id = pr.requirements_id
               )
     )";
+    */
+    $sql = "SELECT DISTINCT p.id, p.title FROM projects p
+      INNER JOIN positions pos
+      ON p.id = pos.project_id
+      WHERE is_draft = 0
+      AND NOT EXISTS(
+          SELECT 1 FROM projects_requirements pr
+          WHERE pr.projects_id = p.id
+              AND NOT EXISTS(
+                  SELECT 1 FROM users_requirements ur
+                  WHERE ur.users_id = ?
+                  AND ur.requirements_id = pr.requirements_id
+              )
+    )";
     $query = $this->db->query($sql, array($_SESSION['user_id'])); // CI query binding example - replaces ? in query
-    print_r($query->result()); 
+    //print_r($query->result()); 
     return $query->result();
   }
 
@@ -87,7 +103,6 @@ class Menu_model extends CI_Model
   // Update users table with current selected project and day
   public function save_previous_project_view($project_id)
   {
-
     $data = array('previous_project' => $project_id);
     $this->db->where('id', $_SESSION['user_id']);
     $this->db->update('users', $data);

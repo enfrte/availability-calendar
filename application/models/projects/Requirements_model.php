@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Requirements_model extends CI_Model
+class Requirements_model extends MY_Model
 {
   //public $current_user_id; // current user's id
 
@@ -77,6 +77,7 @@ class Requirements_model extends CI_Model
     return;
   }
 
+  // get the requirements of an individual project
   public function get_project_requirements($project_id)
   {
     $this->db->select('requirements.id, requirements.title, projects_requirements.projects_id as checked');
@@ -87,13 +88,15 @@ class Requirements_model extends CI_Model
     return $query->result();
   }
 
+  // update the requirements of an individual project
   public function update_project_requirements($requirements, $project_id)
   {
-    // purge the old records of the project 
+    // Note: this is not the requirement itself. See update() for that.
+    // Purge the old records of the project 
     $this->db->where('projects_id', $project_id);
     $this->db->delete('projects_requirements');
     
-    // if any requirements checkboxes (form data) are checked, add them to the db
+    // If any requirements checkboxes (form data) are checked, add them to the db
     if (!empty($requirements)) {
       $data = [];
       
@@ -101,8 +104,34 @@ class Requirements_model extends CI_Model
         $data[] = ['projects_id' => $project_id, 'requirements_id' => $visible];
       }
 
-      $this->db->insert_batch('projects_requirements', $data);
+      return $this->db->insert_batch('projects_requirements', $data);
     }
+    return; 
+  }
+
+  // get the details of a single requirement
+  public function get_requirement($requirement_id)
+  {
+    $query = $this->db->get_where('requirements', array('id' => $requirement_id));
+    //var_dump($query->result()->row());exit;
+    return $query->row();
+  }
+
+  // update the requirement itself
+  public function update($requirement_id)
+  {
+    $data = array(
+      'title' => $this->input->post('requirements_title'),
+      'description' => $this->input->post('requirements_description')
+    );
+    return $this->db->update('requirements', $data, array('id' => $requirement_id));     
+  }
+
+  // delete the requirement itself
+  public function delete($requirement_id)
+  {
+    $this->securityModelAccess('super_admin'); 
+    $this->db->delete('requirements', array('id' => $requirement_id));
     return;
   }
 

@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <?php echo validation_errors(); ?>
-<?php echo $this->session->flashdata('message');?>
+<?php echo $showMessages; ?>
 
 <?php if (!empty($projects)): ?>
 
@@ -34,7 +34,7 @@
 			<tr>
 				<td><?php echo $cancelled->date; ?></td>
 				<td><?php echo $cancelled->project_name; ?></td>
-				<td><a href="cancelled_dates/delete_date/<?php echo $cancelled->id; ?>">Delete</a></td>
+				<td><a href="cancelled_dates/delete_date/<?php echo $cancelled->id; ?>" data-confirm="deleteCancelledDate">Delete</a></td>
 			</tr>
 			<?php endforeach; ?>
 		</table>

@@ -9,8 +9,8 @@ class Menu extends Admin_Controller
     $this->load->model('menu_model');
   }
 
-  // when the user clicks a project in the project menu, set it as the last selected project in the users table
-  // this will be set like a database cookie and the project will be loaded next time the user logs in.
+  // When the user clicks a project in the project menu, set it as the last selected project in the users db table
+  // This will be set like a database cookie and the project will be loaded next time the user logs in.
   // It also serves to set/redirect the selected project to the calendar view. 
   public function set_project($id)
   {
