@@ -38,13 +38,13 @@ function set_password($id=false, $code=false)
         $new_data = array('password' => $this->input->post('password')); 
         $this->ion_auth->update($id, $new_data);
   			// redirect user to login page
-  			$this->session->set_flashdata('message', $this->ion_auth->messages());
+  			$this->session->set_flashdata('ion_auth', $this->ion_auth->messages());
   			redirect("login/login", 'refresh');
   		}
   		else
   		{
   			// activation failed
-  			$this->session->set_flashdata('message', $this->ion_auth->errors());
+  			$this->session->set_flashdata('ion_auth', $this->ion_auth->errors());
   			$this->render("admin/passwords/set_password_view");
   		}
     }

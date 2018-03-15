@@ -5,7 +5,7 @@
       <?php echo sprintf(lang('forgot_password_subheading'), $identity_label);?>
     </div>
 
-    <div id="infoMessage"><?php echo $message;?></div>
+    <?php echo $showMessages; ?>
 
     <?php echo form_open('admin/forgot_password',array('role'=>'form'));?>
 

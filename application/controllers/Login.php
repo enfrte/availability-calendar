@@ -32,7 +32,7 @@ class Login extends Public_Controller
         }
         else
         {
-          $this->session->set_flashdata('message', $this->ion_auth->errors());
+          $this->session->set_flashdata('ion_auth', $this->ion_auth->errors());
           redirect('login/login', 'refresh');
         }
       }

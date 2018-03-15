@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-// groups admin page not currectly used in the app
+// Groups admin page not currectly used in the app
 class Groups extends Admin_Controller
 {
   function __construct()
@@ -8,7 +8,7 @@ class Groups extends Admin_Controller
     parent::__construct();
     if(!$this->ion_auth->in_group('admin'))
     {
-      $this->session->set_flashdata('message','You are not allowed to visit the Groups page');
+      $this->session->set_flashdata('error', 'You are not allowed to visit the Groups page');
       redirect('login/login','refresh');
     }
   }
@@ -59,7 +59,7 @@ class Groups extends Admin_Controller
       }
       else
       {
-        $this->session->set_flashdata('message', 'The group doesn\'t exist.');
+        $this->session->set_flashdata('warning', 'The group doesn\'t exist.');
         redirect('admin/groups', 'refresh');
       }
       $this->load->helper('form');
@@ -80,7 +80,7 @@ class Groups extends Admin_Controller
   {
     if(is_null($group_id))
     {
-      $this->session->set_flashdata('message','There\'s no group to delete');
+      $this->session->set_flashdata('warning','There\'s no group to delete');
     }
     else
     {

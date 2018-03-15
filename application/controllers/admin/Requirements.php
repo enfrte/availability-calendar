@@ -55,7 +55,7 @@ class Requirements extends Admin_Controller
     else
     {
       $this->requirements_model->update($requirement_id);
-      $this->session->set_flashdata('message', "Updated");
+      $this->session->set_flashdata('info', "Updated");
       redirect('admin/requirements', 'refresh');
     }
 

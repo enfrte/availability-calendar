@@ -7,16 +7,12 @@ class Reset_password extends Public_Controller
   {
     parent::__construct();
     $this->data['page_title'] = 'Reset password';
-    $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
   }
 
   // reset password - final step for forgotten password
   public function reset($code = NULL)
   {
-    if (!$code)
-    {
-      show_404();
-    }
+    if (!$code) { show_404(); }
 
     $user = $this->ion_auth->forgotten_password_check($code);
 
@@ -29,7 +25,7 @@ class Reset_password extends Public_Controller
       if ($this->form_validation->run() == false)
       {
         // set the flash data error message if there is one
-        $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+        //$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
         // display the form
         $this->data['min_password_length'] = $this->config->item('min_password_length', 'ion_auth');
@@ -74,12 +70,12 @@ class Reset_password extends Public_Controller
           if ($change)
           {
             // password was successfully changed
-            $this->session->set_flashdata('message', $this->ion_auth->messages());
+            $this->session->set_flashdata('ion_auth', $this->ion_auth->messages());
             redirect("login/login", 'refresh');
           }
           else
           {
-            $this->session->set_flashdata('message', $this->ion_auth->errors());
+            $this->session->set_flashdata('ion_auth', $this->ion_auth->errors());
             redirect('admin/reset_password/' . $code, 'refresh');
           }
         }
@@ -88,7 +84,7 @@ class Reset_password extends Public_Controller
     else
     {
       // if the code is invalid then send them back to the forgot password page
-      $this->session->set_flashdata('message', $this->ion_auth->errors());
+      $this->session->set_flashdata('ion_auth', $this->ion_auth->errors());
       redirect("admin/forgot_password", 'refresh');
     }
   }

@@ -368,7 +368,7 @@ public function set_cancelled_date()
 	$date = date_parse($this->input->post('date'));
 
   if( $date["error_count"] == 1 || !checkdate($date['month'], $date['day'], $date['year']) ) {
-		$this->session->set_flashdata('message', "<div class=\"alert alert-danger\" style=\"margin-top:15px; text-align:left;\"><strong>{$this->input->post('date')} </strong> is not a valid date.</div>");
+		$this->session->set_flashdata('info', "<strong>{$this->input->post('date')} </strong> is not a valid date.");
 		return;
 	}
 	// format the date to YYYY-MM-DD for the database

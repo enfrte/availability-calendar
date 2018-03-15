@@ -1,6 +1,12 @@
 # Change log
 
-## Info about notable changes to the app.
+## Info about changes to the app.
+
+### Log for: 2018-03-15
+
+* General code clean up.
+* Converting reset and forgot password forms to handle the showMessages method.
+* Minor improvement of the reset and forgot password forms.
 
 ### Log for: 2018-03-01
 

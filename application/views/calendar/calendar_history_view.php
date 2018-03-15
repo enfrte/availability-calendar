@@ -1,8 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <?php echo form_open('', 'class="form-inline"'); ?>
-  <select id="year" name="year" class="form-control"></select>
-  <select id="month" name="month" class="form-control"></select>
+  <div class="form-group">
+    <select id="year" name="year" class="form-control"></select>
+  </div>
+  <div class="form-group">
+    <select id="month" name="month" class="form-control"></select>
+  </div>
   <button type="submit" name="submit" class="btn btn-success">Select</button>
 <?php echo form_close(); ?>
 
@@ -22,12 +26,13 @@
                         <p><?php echo $pi->description;?></p>
                         <p><strong>Attendee limit: </strong><?php echo $pi->max_vol;?></p>
                         <p><strong>Attendees: </strong><?php foreach ($pi->attendees as $attendee) { echo "$attendee->full_name<br>"; } ?></p>
-                        <p><strong>Last updated: </strong><?php echo $pi->last_update;?></p>
-                        <hr>
+                        
                         <?php $at_least_one_attendence = true; ?>
                       <?php endif; ?>
                   <?php endforeach; ?>
                   <?php echo (!isset($at_least_one_attendence)) ? "<p>Nobody attendening on this day.</p>" : ''; ?>
+                  <hr>
+                  <p><strong>Last updated: </strong><?php echo $pi->last_update;?></p>
               <?php else: ?>
                   <p>No data for this day.</p>
               <?php endif; ?>

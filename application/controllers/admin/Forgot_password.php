@@ -7,9 +7,6 @@ class Forgot_password extends Public_Controller
   {
     parent::__construct();
     $this->data['page_title'] = 'Forgot password';
-    $this->load->database();
-    $this->load->library(array('ion_auth','form_validation'));
-    $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
   }
 
   function index()
@@ -20,7 +17,7 @@ class Forgot_password extends Public_Controller
     if ($this->form_validation->run() == false)
     {
       // set any errors and display the form
-      $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+      $this->session->set_flashdata('ion_auth', $this->ion_auth->errors());
       $this->render('admin/passwords/forgot_password_view');
     }
     else
@@ -30,7 +27,7 @@ class Forgot_password extends Public_Controller
       if(empty($identity)) {
         // No record of that email address exception
         $this->ion_auth->set_error('forgot_password_email_not_found');
-        $this->session->set_flashdata('message', $this->ion_auth->errors());
+        $this->session->set_flashdata('ion_auth', $this->ion_auth->errors());
         redirect("admin/forgot_password", 'refresh');
       }
 
@@ -40,12 +37,12 @@ class Forgot_password extends Public_Controller
       if ($forgotten)
       {
         // if there were no errors
-        $this->session->set_flashdata('message', $this->ion_auth->messages());
+        $this->session->set_flashdata('ion_auth', $this->ion_auth->messages());
         redirect("admin/forgot_password", 'refresh'); 
       }
       else
       {
-        $this->session->set_flashdata('message', $this->ion_auth->errors());
+        $this->session->set_flashdata('ion_auth', $this->ion_auth->errors());
         redirect("admin/forgot_password", 'refresh');
       }
     }

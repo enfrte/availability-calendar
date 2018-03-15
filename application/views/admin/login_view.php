@@ -4,7 +4,7 @@
     <hr>
     <h1>Login</h1>
     <?php
-      //echo $this->session->flashdata('message'); // output any flashdata session messages
+      //echo $this->session->flashdata('message'); 
       echo $showMessages;
     ?>
     <?php echo form_open('',array('role'=>'form'));?>

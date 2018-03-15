@@ -4,7 +4,7 @@
   <div class="col-lg-8 col-lg-offset-2">
     <?php
     echo validation_errors();
-    echo $showMessages;
+    //echo $showMessages;
     // prompt the user to select a project day or view type
     if(!isset($_SESSION['selected_project_id']) && !isset($project)) {
       echo '<h1 class="cal-header-row">Select a project</h1>';
@@ -118,7 +118,7 @@
       echo form_close();
     }
     echo '</div><!-- END FORM-CONTAINER -->';
-    echo '<div id="calendar-message-container" class="to-show" style="margin-top:15px"><div class="alert alert-info" role="alert">(calendar-message-container) Select a date from the calendar.</div></div>';
+    echo '<div id="calendar-message-container" class="to-show" style="margin-top:15px"><div class="alert alert-info" role="alert">Select a date from the calendar.</div></div>';
     echo '</div><!-- END CALENDAR-CONTINER -->';
 
   } // END ELSE

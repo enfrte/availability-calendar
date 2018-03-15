@@ -19,7 +19,6 @@ class MY_Controller extends CI_Controller
       $this->data['current_user']['id'] = NULL;
     }
     //$this->data['calendar_days'] = ''; // n-day appearing in a clanendar month where n = Mon, Tues...
-    //$this->session->set_flashdata('', "Done");
     $this->data['showMessages'] = $this->showMessages();
   }
 
@@ -40,21 +39,21 @@ class MY_Controller extends CI_Controller
       }
       // Require user to be logged in before accessing any page
       if( $this->ion_auth->logged_in() === FALSE ) {
-        $this->session->set_flashdata('not_logged_in', 'You must be logged in to access that page.');
+        $this->session->set_flashdata('error', 'You must be logged in to access that page.');
         redirect('login/login', 'refresh');
       }
     }
 
     // the access level requires admin, but the user is not in the admin or super_admin group
     if ( $access_level === 'admin' && ($this->ion_auth->in_group('admin') === FALSE && $this->ion_auth->in_group('super_admin') === FALSE) ) {
-      $this->session->set_flashdata('admin_access', 'You must be logged-in as admin to do that.');
+      $this->session->set_flashdata('error', 'You must be logged-in as admin to do that.');
       $this->ion_auth->logout();
       redirect('login/login', 'refresh');
     }
 
     // the access level requires admin, but the user is not in the admin group
     if ( $access_level === 'super_admin' && $this->ion_auth->in_group('super_admin') === FALSE ) {
-      $this->session->set_flashdata('admin_access', 'You must be logged-in as super admin to do that.');
+      $this->session->set_flashdata('error', 'You must be logged-in as super admin to do that.');
       $this->ion_auth->logout();
       redirect('login/login', 'refresh');
     }
@@ -84,8 +83,16 @@ class MY_Controller extends CI_Controller
         else if (strpos($key, 'info') !== false) { 
           $messages .= '<div class="alert alert-info" role="alert">'.$this->session->flashdata($key).'</div>';
         } 
-        else { 
+        else if (strpos($key, 'warning') !== false) { 
           $messages .= '<div class="alert alert-warning" role="alert">'.$this->session->flashdata($key).'</div>';
+        } 
+        else if ( strpos($key, 'csrfkey' ) !== false || strpos($key, 'csrfvalue') !== false ) { 
+          // prevent outputting csrf data used by ion auth and set_flashdata() 
+          return;
+        } 
+        else { 
+          // ion auth stylises its own messages, when calling for example $this->ion_auth->errors(). See app/config/ion_auth.php
+          $messages .= $this->session->flashdata($key);
         } 
       }
     }
