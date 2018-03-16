@@ -4,8 +4,6 @@
 
 ### Video Demo (click the image)
 
-Note: This is an early demo version and needes to be updated. 
-
 [![Demo](https://img.youtube.com/vi/K8l2x3Ow47Q/0.jpg)](https://youtu.be/Dy4SnFRVhXQ)
 
 ## Introduction
