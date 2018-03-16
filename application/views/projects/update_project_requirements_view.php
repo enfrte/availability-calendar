@@ -29,7 +29,7 @@
         
         <div class="panel panel-warning">
           <div class="panel-heading">Attention</div>
-          <div class="panel-body">No project requirements have been created yet. To create a new requirements, go to <span class="label label-default">Menu > Project requirements > New requirements</span> or click <a href="<?php echo site_url('admin/requirements/create');?>">here.</a></div>
+          <div class="panel-body">No project requirements have been created yet. To create a new requirements, go to <span class="label label-default">Menu > Project requirements > Create new requirements</span> or click <a href="<?php echo site_url('admin/requirements/create');?>">here.</a></div>
         </div>
       
       <?php endif; ?>

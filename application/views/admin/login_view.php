@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-lg-4 col-lg-offset-4">
+  <div class="col-md-4 col-md-offset-4">
     <h1 style="margin-top:45px;"><?php echo $this->config->item('cms_title');?></h1>
     <hr>
     <h1>Login</h1>

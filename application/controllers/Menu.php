@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // Select the project from the project menu (this is not the User menu)
-class Menu extends Admin_Controller
+class Menu extends Member_Controller
 {
   function __construct()
   {

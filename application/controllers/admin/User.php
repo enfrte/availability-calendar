@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-// control some standard user interactions
+// Allow a user to admin their own account. To admin other users, see Users.php
 class User extends Member_Controller
 {
   function __construct()

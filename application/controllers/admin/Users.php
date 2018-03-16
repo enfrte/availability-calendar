@@ -1,17 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-// admin other user accounts
+// Admin other user accounts
 class Users extends Admin_Controller
 {
   function __construct()
   {
     parent::__construct();
-    // this can be moved to the admin controller
-    if(!$this->ion_auth->in_group('admin') && !$this->ion_auth->in_group('super_admin'))
-    {
-      $this->session->set_flashdata('message','You are not allowed to visit that page.');
-      redirect('login/login','refresh');
-    }
   }
 
   // list the users in a user table (don't forget to include index in the call when filtering by group).

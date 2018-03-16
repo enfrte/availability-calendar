@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Requirements_model extends MY_Model
+class Requirements_model extends CI_Model
 {
   //public $current_user_id; // current user's id
 
@@ -130,9 +130,7 @@ class Requirements_model extends MY_Model
   // delete the requirement itself
   public function delete($requirement_id)
   {
-    $this->securityModelAccess('super_admin'); 
-    $this->db->delete('requirements', array('id' => $requirement_id));
-    return;
+    return $this->db->delete('requirements', array('id' => $requirement_id));
   }
 
 }

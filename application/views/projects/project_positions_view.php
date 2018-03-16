@@ -131,7 +131,6 @@
 <?php
   // create the controller uri base for the select day tag value to append to. Should include up to project id
   $controller_uri = base_url().$this->uri->slash_segment(1).$this->uri->slash_segment(2).$this->uri->slash_segment(3).$this->uri->slash_segment(4);
-  echo $controller_uri;
   // session variable for uri -- if the is a problem with the user action (actions draft, publish or delete), send the user back to the right place with args intact
   //$this->session->set_userdata( 'controller_uri_session', $controller_uri.$this->uri->segment(6) );
 ?>
