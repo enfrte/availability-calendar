@@ -4,7 +4,7 @@
 
 ### Video Demo (click the image)
 
-[![Demo](https://img.youtube.com/vi/K8l2x3Ow47Q/0.jpg)](https://youtu.be/Dy4SnFRVhXQ)
+[![Demo](https://i3.ytimg.com/vi/Dy4SnFRVhXQ/maxresdefault.jpg)](https://youtu.be/Dy4SnFRVhXQ)
 
 ## Introduction
 
