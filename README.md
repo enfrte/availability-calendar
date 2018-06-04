@@ -4,9 +4,7 @@
 
 ### Video Demo (click the image)
 
-Note: This is an early demo version and needes to be updated. 
-
-[![DIY Lingo Demo](https://img.youtube.com/vi/K8l2x3Ow47Q/0.jpg)](https://www.youtube.com/watch?v=K8l2x3Ow47Q)
+[![Demo](https://i3.ytimg.com/vi/Dy4SnFRVhXQ/maxresdefault.jpg)](https://youtu.be/Dy4SnFRVhXQ)
 
 ## Introduction
 
@@ -26,10 +24,6 @@ Various projects can run on various days of the week, and each project day can h
 ## Permissions
 
 The system is closed to registration form the outside world. Only admins can register new users. The super admin can create/edit users and regular admins. Projects can only be edited by admins and super admins. 
-
-## To do
-
-There are still a couple of things to do to polish this app off, but for the most part, it is finished. 
 
 ## Third party acknowledgement 
 
