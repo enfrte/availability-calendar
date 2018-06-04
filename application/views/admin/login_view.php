@@ -9,20 +9,27 @@
     ?>
     <?php echo form_open('',array('role'=>'form'));?>
       <div class="form-group">
-        <?php echo form_label('Email','identity');?>
-        <?php echo form_error('identity'); // feild specific error - like required ?>
-        <?php echo form_input('identity','','class="form-control"');?>
+        <?php
+          echo form_label('Email','identity');
+          echo form_error('identity');
+          $emailData = [
+            'name' => 'identity',
+            'type' => 'email', 
+            'class' => 'form-control'
+          ];
+          echo form_input($emailData);
+          ?>
       </div>
       <div class="form-group">
         <?php echo form_label('Password','password');?>
         <?php echo form_error('password');?>
         <?php echo form_password('password','','class="form-control"');?>
       </div>
-      <div class="form-group">
+      <!--<div class="form-group">
         <label>
           <?php echo form_checkbox('remember','1',FALSE);?> Remember me
         </label>
-      </div>
+      </div>-->
       <?php echo form_submit('submit', 'Log in', 'class="btn btn-primary btn-lg btn-block" style="margin-bottom:15px;"');?>
       <p>
         <?php echo anchor('admin/forgot_password', 'Forgot password?');?>

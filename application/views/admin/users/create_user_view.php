@@ -52,9 +52,14 @@
 
     <div class="form-group">
       <?php
-      echo form_label('Email','email');
-      echo form_error('email');
-      echo form_input('email','','class="form-control"');
+        echo form_label('Email','email');
+        echo form_error('email');
+        $emailData = [
+          'name' => 'email',
+          'type' => 'email', 
+          'class' => 'form-control'
+        ];
+        echo form_input($emailData);
       ?>
     </div>
 

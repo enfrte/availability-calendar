@@ -7,7 +7,7 @@
       <div class="col-lg-12">
         
         <h1>Requirements view</h1>
-        <p>Requirements rules allow you to restrict requirements of projects to certain users. After creating a new requirement, activate it in the project settings (Progect page > Edit positions) and configure the users (User list > Edit user) allowed to participate.</p>
+        <p>Requirements rules allow you to restrict visibility of projects to certain users. After creating a new requirement, activate it in the project settings (Progect page > Edit positions) and configure the users (User list > Edit user) allowed to participate.</p>
         
         <?php echo $showMessages; ?>
 

@@ -2,7 +2,7 @@
 
 <footer class="footer acal-footer">
     <div class="container">
-        <p class="text-muted acal-text-muted">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
+        <p class="text-muted acal-text-muted">Page rendered in <strong>{elapsed_time}</strong> seconds.</p>
     </div>
 </footer>
 

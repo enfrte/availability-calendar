@@ -56,7 +56,7 @@ class Menu_model extends CI_Model
               )
     )";
     $query = $this->db->query($sql, array($_SESSION['user_id'])); // CI query binding example - replaces ? in query
-    //print_r($query->result()); 
+    //print_r($query->result()); exit(); 
     return $query->result();
   }
 

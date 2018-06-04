@@ -42,14 +42,14 @@
         echo anchor('calendar/project_positions/update_position/'.$project->id,'Edit positions').'<br>'
             .anchor('calendar/projects/update_requirements/'.$project->id,'Edit requirements').'<br>'
             .anchor('calendar/projects/update_title/'.$project->id,'Edit title').'<br>'
-            .anchor('calendar/projects/delete_project/'.$project->id, 'Delete project', 'data-confirm="deleteUser"');
+            .anchor('calendar/projects/delete_project/'.$project->id, 'Delete project', 'data-confirm="deleteProject"');
       }
       // user is admin && this list's user is not admin (ie. a member)
       else if($this->ion_auth->in_group('admin') && $current_user['id'] == $project->owner_id)
       {
         echo anchor('calendar/project_positions/update_position/'.$project->id,'Edit positions').'<br>'
             .anchor('calendar/projects/update_title/'.$project->id,'Edit title').'<br>'
-            .anchor('calendar/projects/delete_project/'.$project->id, 'Delete project', 'data-confirm="deleteUser"');
+            .anchor('calendar/projects/delete_project/'.$project->id, 'Delete project', 'data-confirm="deleteProject"');
       }
       else
       {

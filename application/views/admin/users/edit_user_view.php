@@ -51,8 +51,13 @@
         <?php
         echo form_label('Email','email');
         echo form_error('email');
-        echo form_input('email','','class="form-control"');
-        ?>
+        $emailData = [
+          'name' => 'email',
+          'type' => 'email', 
+          'class' => 'form-control'
+        ];
+        echo form_input($emailData);
+      ?>
       </div>
     
       <?php if(!empty($requirements)) : ?>

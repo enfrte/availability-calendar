@@ -13,7 +13,13 @@
       <?php
       echo form_label('Enter your registered email','identity');
       echo form_error('identity');
-      echo form_input('identity','','class="form-control"');
+      $emailData = [
+        'name' => 'identity',
+        'type' => 'email', 
+        'class' => 'form-control'
+      ];
+      echo form_input($emailData);
+
       ?>
     </div>
 
